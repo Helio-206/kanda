@@ -22,6 +22,7 @@ The development server runs at [http://localhost:3000](http://localhost:3000) by
 | `npm run dev` | Start local Vite server |
 | `npm run lint` | Run ESLint |
 | `npm run build` | Type-check and build production assets |
+| `npm test` | Run automated tests with Vitest |
 | `npm run preview` | Serve the `dist/` build locally |
 
 ## Editing Copy
@@ -65,6 +66,7 @@ Always run:
 ```bash
 npm run lint
 npm run build
+npm test
 ```
 
 If UI changed, also review:

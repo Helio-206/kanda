@@ -5,7 +5,7 @@ export function calculateKandaScore(
   impactScore: number,
   confidenceScore: number,
 ): number {
-  const score = riskScore * 0.4 + impactScore * 0.35 + confidenceScore * 0.25;
+  const score = riskScore * 0.45 + impactScore * 0.35 + confidenceScore * 0.2;
   return Math.round(Math.min(100, Math.max(0, score)));
 }
 

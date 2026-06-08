@@ -1,5 +1,7 @@
 # KANDA — Intelligent Occurrence Management
 
+[![CI](https://github.com/Helio-206/kanda/actions/workflows/ci.yml/badge.svg)](https://github.com/Helio-206/kanda/actions/workflows/ci.yml)
+
 KANDA is a commercial prototype for registering, locating, qualifying, prioritizing, and tracking urban occurrences.
 
 The product flow is intentionally focused:
@@ -20,6 +22,14 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000).
 
+## Quality Gates
+
+```bash
+npm run lint
+npm run build
+npm test
+```
+
 ## Routes
 
 | Route | Purpose |
@@ -37,9 +47,12 @@ Open [http://localhost:3000](http://localhost:3000).
 | [docs/architecture.md](docs/architecture.md) | Technical structure and data flow |
 | [docs/development.md](docs/development.md) | Setup, scripts, and local workflow |
 | [docs/phases.md](docs/phases.md) | Product phases and delivery stages |
+| [docs/roadmap.md](docs/roadmap.md) | Milestones, epics, and execution order |
 | [docs/procedures.md](docs/procedures.md) | Operating procedures for the team |
 | [docs/rules.md](docs/rules.md) | Product, code, and presentation rules |
 | [docs/technical-spec.md](docs/technical-spec.md) | Technical specification and production path |
+| [docs/api/README.md](docs/api/README.md) | API contract and OpenAPI guidance |
+| [CONTRIBUTING.md](CONTRIBUTING.md) | Contribution workflow and pull request rules |
 
 ## Stack
 

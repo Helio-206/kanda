@@ -6,7 +6,7 @@
 2. Run `npm install` if dependencies changed.
 3. Start with `npm run dev`.
 4. Keep changes scoped to the task.
-5. Run `npm run lint` and `npm run build` before handing off.
+5. Run `npm run lint`, `npm run build`, and `npm test` before handing off.
 
 ## Product Review Procedure
 
@@ -32,10 +32,11 @@ When map or location code changes:
 
 1. Run `npm run lint`.
 2. Run `npm run build`.
-3. Review the production build with `npm run preview`.
-4. Update documentation if behavior changed.
-5. Commit with a clear message.
-6. Push to GitHub.
+3. Run `npm test`.
+4. Review the production build with `npm run preview`.
+5. Update documentation if behavior changed.
+6. Commit with a clear message.
+7. Push to GitHub.
 
 ## Incident Procedure
 
@@ -45,5 +46,5 @@ If a critical demo path breaks:
 2. Identify the route and component.
 3. Check console errors.
 4. Fix the smallest responsible surface.
-5. Re-run lint/build.
+5. Re-run lint/build/tests.
 6. Document the issue and resolution in the handoff notes if teammates need to know.

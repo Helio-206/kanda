@@ -23,7 +23,7 @@
 - Prefer reusable components for maps, occurrence detail, and layout.
 - Keep GSAP/Lenis animations intact unless the task explicitly changes motion.
 - Use `rg` for searching.
-- Run `npm run lint` and `npm run build` before publishing.
+- Run `npm run lint`, `npm run build`, and `npm test` before publishing.
 
 ## Data Rules
 

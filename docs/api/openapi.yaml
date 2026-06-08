@@ -1,0 +1,705 @@
+openapi: 3.1.0
+info:
+  title: KANDA API
+  version: 0.1.0
+  summary: Shared API contract for occurrence reporting, analysis, maps, and entity operations.
+  description: >
+    Contract for the future FastAPI backend. The implementation should expose
+    Swagger UI at /api/docs and the generated schema at /api/openapi.json.
+servers:
+  - url: /api
+    description: FastAPI application mounted under /api
+tags:
+  - name: Health
+  - name: Reports
+  - name: Analysis
+  - name: Entities
+paths:
+  /health:
+    get:
+      tags:
+        - Health
+      summary: Check service health
+      operationId: getHealth
+      responses:
+        "200":
+          description: Service is healthy
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/HealthResponse"
+
+  /reports/analyze:
+    post:
+      tags:
+        - Analysis
+      summary: Analyze an occurrence before creation
+      operationId: analyzeReport
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              $ref: "#/components/schemas/AnalyzeReportRequest"
+      responses:
+        "200":
+          description: Analysis result
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/AnalyzeReportResponse"
+        "422":
+          $ref: "#/components/responses/ValidationError"
+
+  /reports:
+    post:
+      tags:
+        - Reports
+      summary: Create an occurrence
+      operationId: createReport
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateReportRequest"
+      responses:
+        "201":
+          description: Created occurrence
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Occurrence"
+        "422":
+          $ref: "#/components/responses/ValidationError"
+    get:
+      tags:
+        - Reports
+      summary: List occurrences
+      operationId: listReports
+      parameters:
+        - $ref: "#/components/parameters/StatusQuery"
+        - $ref: "#/components/parameters/RiskQuery"
+        - $ref: "#/components/parameters/EntityQuery"
+        - $ref: "#/components/parameters/CategoryQuery"
+        - $ref: "#/components/parameters/MinScoreQuery"
+        - $ref: "#/components/parameters/LimitQuery"
+        - $ref: "#/components/parameters/OffsetQuery"
+      responses:
+        "200":
+          description: Paginated occurrence list
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/OccurrenceListResponse"
+
+  /reports/nearby:
+    get:
+      tags:
+        - Reports
+      summary: Find nearby or similar occurrences
+      operationId: findNearbyReports
+      parameters:
+        - name: latitude
+          in: query
+          required: true
+          schema:
+            type: number
+            format: double
+        - name: longitude
+          in: query
+          required: true
+          schema:
+            type: number
+            format: double
+        - name: radiusMeters
+          in: query
+          required: false
+          schema:
+            type: integer
+            default: 800
+            minimum: 50
+            maximum: 10000
+        - name: tags
+          in: query
+          required: false
+          schema:
+            type: array
+            items:
+              type: string
+          style: form
+          explode: false
+      responses:
+        "200":
+          description: Nearby occurrence matches
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/NearbyOccurrence"
+        "422":
+          $ref: "#/components/responses/ValidationError"
+
+  /reports/{code}:
+    get:
+      tags:
+        - Reports
+      summary: Get occurrence by public code
+      operationId: getReportByCode
+      parameters:
+        - $ref: "#/components/parameters/CodePath"
+      responses:
+        "200":
+          description: Occurrence detail
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Occurrence"
+        "404":
+          $ref: "#/components/responses/NotFound"
+
+  /reports/{code}/status:
+    patch:
+      tags:
+        - Reports
+      summary: Update occurrence status
+      operationId: updateReportStatus
+      parameters:
+        - $ref: "#/components/parameters/CodePath"
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UpdateStatusRequest"
+      responses:
+        "200":
+          description: Updated occurrence
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Occurrence"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "422":
+          $ref: "#/components/responses/ValidationError"
+
+  /reports/{code}/confirm:
+    post:
+      tags:
+        - Reports
+      summary: Confirm an existing occurrence
+      operationId: confirmReport
+      parameters:
+        - $ref: "#/components/parameters/CodePath"
+      requestBody:
+        required: false
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ConfirmReportRequest"
+      responses:
+        "200":
+          description: Confirmed occurrence
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Occurrence"
+        "404":
+          $ref: "#/components/responses/NotFound"
+        "409":
+          description: Device already confirmed this occurrence
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ErrorResponse"
+
+  /entities:
+    get:
+      tags:
+        - Entities
+      summary: List responsible entities
+      operationId: listEntities
+      parameters:
+        - name: area
+          in: query
+          required: false
+          schema:
+            type: string
+          description: Optional service area filter.
+      responses:
+        "200":
+          description: Entity list
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Entity"
+
+components:
+  parameters:
+    CodePath:
+      name: code
+      in: path
+      required: true
+      schema:
+        type: string
+        example: KANDA-00A12B
+    StatusQuery:
+      name: status
+      in: query
+      required: false
+      schema:
+        $ref: "#/components/schemas/OccurrenceStatus"
+    RiskQuery:
+      name: risk
+      in: query
+      required: false
+      schema:
+        $ref: "#/components/schemas/RiskLevel"
+    EntityQuery:
+      name: entity
+      in: query
+      required: false
+      schema:
+        type: string
+    CategoryQuery:
+      name: category
+      in: query
+      required: false
+      schema:
+        type: string
+    MinScoreQuery:
+      name: minScore
+      in: query
+      required: false
+      schema:
+        type: integer
+        minimum: 0
+        maximum: 100
+    LimitQuery:
+      name: limit
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 50
+        minimum: 1
+        maximum: 100
+    OffsetQuery:
+      name: offset
+      in: query
+      required: false
+      schema:
+        type: integer
+        default: 0
+        minimum: 0
+
+  responses:
+    NotFound:
+      description: Resource not found
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+    ValidationError:
+      description: Request validation failed
+      content:
+        application/json:
+          schema:
+            $ref: "#/components/schemas/ErrorResponse"
+
+  schemas:
+    HealthResponse:
+      type: object
+      required:
+        - status
+      properties:
+        status:
+          type: string
+          enum:
+            - ok
+
+    RiskLevel:
+      type: string
+      enum:
+        - Baixo
+        - Médio
+        - Alto
+        - Crítico
+
+    OccurrenceStatus:
+      type: string
+      enum:
+        - Reportado
+        - Validado
+        - Encaminhado
+        - Em análise
+        - Em resolução
+        - Resolvido
+
+    Location:
+      type: object
+      required:
+        - latitude
+        - longitude
+      properties:
+        latitude:
+          type:
+            - number
+            - "null"
+          format: double
+        longitude:
+          type:
+            - number
+            - "null"
+          format: double
+        address:
+          type: string
+        municipality:
+          type: string
+        province:
+          type: string
+
+    Scores:
+      type: object
+      required:
+        - riskScore
+        - impactScore
+        - confidenceScore
+        - kandaScore
+      properties:
+        riskScore:
+          type: integer
+          minimum: 0
+          maximum: 100
+        impactScore:
+          type: integer
+          minimum: 0
+          maximum: 100
+        confidenceScore:
+          type: integer
+          minimum: 0
+          maximum: 100
+        kandaScore:
+          type: integer
+          minimum: 0
+          maximum: 100
+
+    OccurrenceHistoryEntry:
+      type: object
+      required:
+        - status
+        - note
+        - createdAt
+      properties:
+        status:
+          $ref: "#/components/schemas/OccurrenceStatus"
+        note:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+
+    Occurrence:
+      type: object
+      required:
+        - id
+        - code
+        - imageUrl
+        - category
+        - tags
+        - aiSuggestedTags
+        - description
+        - risk
+        - riskScore
+        - impactScore
+        - confidenceScore
+        - kandaScore
+        - priority
+        - responsibleEntity
+        - entityMatchConfidence
+        - suggestedAction
+        - location
+        - status
+        - history
+        - confirmations
+        - createdAt
+        - updatedAt
+      properties:
+        id:
+          type: string
+          format: uuid
+        code:
+          type: string
+          example: KANDA-00A12B
+        imageUrl:
+          type: string
+          format: uri
+        citizenNote:
+          type: string
+        category:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        aiSuggestedTags:
+          type: array
+          items:
+            type: string
+        description:
+          type: string
+        risk:
+          $ref: "#/components/schemas/RiskLevel"
+        riskScore:
+          type: integer
+          minimum: 0
+          maximum: 100
+        impactScore:
+          type: integer
+          minimum: 0
+          maximum: 100
+        confidenceScore:
+          type: integer
+          minimum: 0
+          maximum: 100
+        kandaScore:
+          type: integer
+          minimum: 0
+          maximum: 100
+        priority:
+          type: integer
+          minimum: 0
+          maximum: 100
+        responsibleEntity:
+          type: string
+        entityMatchConfidence:
+          type: integer
+          minimum: 0
+          maximum: 100
+        suggestedAction:
+          type: string
+        location:
+          $ref: "#/components/schemas/Location"
+        status:
+          $ref: "#/components/schemas/OccurrenceStatus"
+        history:
+          type: array
+          items:
+            $ref: "#/components/schemas/OccurrenceHistoryEntry"
+        confirmations:
+          type: integer
+          minimum: 0
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+
+    AnalyzeReportRequest:
+      type: object
+      required:
+        - image
+        - location
+      properties:
+        image:
+          type: string
+          format: binary
+        citizenNote:
+          type: string
+        location:
+          $ref: "#/components/schemas/Location"
+
+    AnalyzeReportResponse:
+      type: object
+      required:
+        - category
+        - suggestedTags
+        - description
+        - risk
+        - scores
+        - responsibleEntity
+        - entityMatchConfidence
+        - suggestedAction
+      properties:
+        category:
+          type: string
+        suggestedTags:
+          type: array
+          items:
+            type: string
+        description:
+          type: string
+        risk:
+          $ref: "#/components/schemas/RiskLevel"
+        scores:
+          $ref: "#/components/schemas/Scores"
+        responsibleEntity:
+          type: string
+        entityMatchConfidence:
+          type: integer
+          minimum: 0
+          maximum: 100
+        suggestedAction:
+          type: string
+
+    CreateReportRequest:
+      type: object
+      required:
+        - imageUrl
+        - category
+        - tags
+        - aiSuggestedTags
+        - description
+        - risk
+        - riskScore
+        - impactScore
+        - confidenceScore
+        - kandaScore
+        - priority
+        - responsibleEntity
+        - entityMatchConfidence
+        - suggestedAction
+        - location
+      properties:
+        imageUrl:
+          type: string
+          format: uri
+        citizenNote:
+          type: string
+        category:
+          type: string
+        tags:
+          type: array
+          items:
+            type: string
+        aiSuggestedTags:
+          type: array
+          items:
+            type: string
+        description:
+          type: string
+        risk:
+          $ref: "#/components/schemas/RiskLevel"
+        riskScore:
+          type: integer
+          minimum: 0
+          maximum: 100
+        impactScore:
+          type: integer
+          minimum: 0
+          maximum: 100
+        confidenceScore:
+          type: integer
+          minimum: 0
+          maximum: 100
+        kandaScore:
+          type: integer
+          minimum: 0
+          maximum: 100
+        priority:
+          type: integer
+          minimum: 0
+          maximum: 100
+        responsibleEntity:
+          type: string
+        entityMatchConfidence:
+          type: integer
+          minimum: 0
+          maximum: 100
+        suggestedAction:
+          type: string
+        location:
+          $ref: "#/components/schemas/Location"
+
+    UpdateStatusRequest:
+      type: object
+      required:
+        - status
+        - note
+      properties:
+        status:
+          $ref: "#/components/schemas/OccurrenceStatus"
+        note:
+          type: string
+
+    ConfirmReportRequest:
+      type: object
+      properties:
+        deviceId:
+          type: string
+        note:
+          type: string
+
+    NearbyOccurrence:
+      type: object
+      required:
+        - occurrence
+        - distanceMeters
+        - similarityScore
+      properties:
+        occurrence:
+          $ref: "#/components/schemas/Occurrence"
+        distanceMeters:
+          type: number
+        similarityScore:
+          type: integer
+          minimum: 0
+          maximum: 100
+
+    Entity:
+      type: object
+      required:
+        - id
+        - name
+        - serviceAreas
+        - status
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        serviceAreas:
+          type: array
+          items:
+            type: string
+        status:
+          type: string
+          enum:
+            - active
+            - inactive
+
+    OccurrenceListResponse:
+      type: object
+      required:
+        - items
+        - total
+        - limit
+        - offset
+      properties:
+        items:
+          type: array
+          items:
+            $ref: "#/components/schemas/Occurrence"
+        total:
+          type: integer
+          minimum: 0
+        limit:
+          type: integer
+        offset:
+          type: integer
+
+    ErrorResponse:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          type: string
+        details:
+          type: object
+          additionalProperties: true
