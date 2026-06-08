@@ -3,10 +3,11 @@
 ## Daily Development
 
 1. Pull the latest changes.
-2. Run `npm install` if dependencies changed.
-3. Start with `npm run dev`.
-4. Keep changes scoped to the task.
-5. Run `npm run lint`, `npm run build`, and `npm test` before handing off.
+2. Enter `Frontend/`.
+3. Run `npm install` if dependencies changed.
+4. Start with `npm run dev`.
+5. Keep changes scoped to the task.
+6. Run `npm run lint`, `npm run build`, and `npm test` before handing off.
 
 ## Product Review Procedure
 
@@ -30,13 +31,14 @@ When map or location code changes:
 
 ## Release Procedure
 
-1. Run `npm run lint`.
-2. Run `npm run build`.
-3. Run `npm test`.
-4. Review the production build with `npm run preview`.
-5. Update documentation if behavior changed.
-6. Commit with a clear message.
-7. Push to GitHub.
+1. Enter `Frontend/`.
+2. Run `npm run lint`.
+3. Run `npm run build`.
+4. Run `npm test`.
+5. Review the production build with `npm run preview`.
+6. Update documentation if behavior changed.
+7. Commit with a clear message.
+8. Push to GitHub.
 
 ## Incident Procedure
 

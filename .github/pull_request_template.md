@@ -8,9 +8,9 @@ Closes #
 
 ## Verification
 
-- [ ] `npm run lint`
-- [ ] `npm run build`
-- [ ] `npm test`
+- [ ] `cd Frontend && npm run lint`
+- [ ] `cd Frontend && npm run build`
+- [ ] `cd Frontend && npm test`
 
 ## UI Review
 

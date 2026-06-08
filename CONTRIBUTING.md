@@ -13,6 +13,7 @@ This project is moving from prototype to team execution. Keep contributions smal
 Run the full local quality gate:
 
 ```bash
+cd Frontend
 npm run lint
 npm run build
 npm test

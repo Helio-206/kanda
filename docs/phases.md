@@ -16,8 +16,9 @@ Scope:
 
 Exit criteria:
 
-- `npm run lint` passes;
-- `npm run build` passes;
+- `npm run lint` passes from `Frontend/`;
+- `npm run build` passes from `Frontend/`;
+- `npm test` passes from `Frontend/`;
 - desktop and mobile flows are visually reviewed;
 - no broken route or missing map tile in the core flow.
 

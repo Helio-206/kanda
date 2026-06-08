@@ -30,6 +30,23 @@ The product is not a generic report form. It is an operational intake layer betw
 
 ```
 app/
+├── Frontend/
+│   ├── src/
+│   │   ├── features/landing/          # Landing composition and commercial copy
+│   │   ├── pages/                     # Route-level product screens
+│   │   ├── sections/                  # Landing sections
+│   │   ├── components/
+│   │   │   ├── layout/                # Navigation, app shell, footer
+│   │   │   ├── maps/                  # Leaflet/OpenStreetMap map layer
+│   │   │   ├── occurrence/            # Upload, location, detail, score, timeline
+│   │   │   └── ui/                    # shadcn/ui primitives
+│   │   ├── services/                  # Occurrence orchestration
+│   │   ├── hooks/
+│   │   ├── lib/                       # Analysis, scoring, storage, geo helpers
+│   │   └── types/
+│   ├── public/
+│   ├── package.json
+│   └── vite.config.ts
 ├── docs/
 │   ├── architecture.md
 │   ├── development.md
@@ -37,29 +54,16 @@ app/
 │   ├── phases.md
 │   ├── procedures.md
 │   └── rules.md
-├── src/
-│   ├── features/landing/          # Landing composition and commercial copy
-│   ├── pages/                     # Route-level product screens
-│   ├── sections/                  # Landing sections
-│   ├── components/
-│   │   ├── layout/                # Navigation, app shell, footer
-│   │   ├── maps/                  # Leaflet/OpenStreetMap map layer
-│   │   ├── occurrence/            # Upload, location, detail, score, timeline
-│   │   └── ui/                    # shadcn/ui primitives
-│   ├── services/                  # Occurrence orchestration
-│   ├── hooks/
-│   ├── lib/                       # Analysis, scoring, storage, geo helpers
-│   └── types/
 └── README.md
 ```
 
 ## Core Modules
 
-- `src/services/occurrenceService.ts` orchestrates create, search, duplicate detection, and status updates.
-- `src/lib/analysis/analyzeOccurrence.ts` contains the local analysis engine.
-- `src/lib/scoring/kandaScore.ts` contains the KANDA Score formula.
-- `src/lib/geo/reverseGeocode.ts` converts coordinates into readable area names.
-- `src/components/maps/RealMap.tsx` renders the real map layer.
+- `Frontend/src/services/occurrenceService.ts` orchestrates create, search, duplicate detection, and status updates.
+- `Frontend/src/lib/analysis/analyzeOccurrence.ts` contains the local analysis engine.
+- `Frontend/src/lib/scoring/kandaScore.ts` contains the KANDA Score formula.
+- `Frontend/src/lib/geo/reverseGeocode.ts` converts coordinates into readable area names.
+- `Frontend/src/components/maps/RealMap.tsx` renders the real map layer.
 
 ## Presentation Notes
 

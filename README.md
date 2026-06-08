@@ -16,6 +16,7 @@ The product flow is intentionally focused:
 ## Quick Start
 
 ```bash
+cd Frontend
 npm install
 npm run dev
 ```
@@ -25,10 +26,19 @@ Open [http://localhost:3000](http://localhost:3000).
 ## Quality Gates
 
 ```bash
+cd Frontend
 npm run lint
 npm run build
 npm test
 ```
+
+## Repository Layout
+
+| Path | Purpose |
+|------|---------|
+| `Frontend/` | React/Vite frontend application |
+| `docs/` | Product, architecture, API, and team documentation |
+| `.github/` | GitHub Actions and pull request template |
 
 ## Routes
 

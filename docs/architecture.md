@@ -18,14 +18,14 @@ main.tsx
 
 | Layer | Folder | Responsibility |
 |-------|--------|----------------|
-| Landing | `src/features/landing/`, `src/sections/` | Commercial narrative and conversion |
-| Pages | `src/pages/` | Route-level occurrence workflow |
-| Layout | `src/components/layout/` | Navigation, app shell, footer |
-| Occurrence UI | `src/components/occurrence/` | Upload, location, detail, score, timeline, validation |
-| Maps | `src/components/maps/` | Reusable Leaflet/OpenStreetMap layer |
-| Services | `src/services/` | Create, search, duplicate detection, update operations |
-| Core | `src/lib/` | Analysis, scoring, storage, normalization, geolocation |
-| Types | `src/types/` | Domain contracts |
+| Landing | `Frontend/src/features/landing/`, `Frontend/src/sections/` | Commercial narrative and conversion |
+| Pages | `Frontend/src/pages/` | Route-level occurrence workflow |
+| Layout | `Frontend/src/components/layout/` | Navigation, app shell, footer |
+| Occurrence UI | `Frontend/src/components/occurrence/` | Upload, location, detail, score, timeline, validation |
+| Maps | `Frontend/src/components/maps/` | Reusable Leaflet/OpenStreetMap layer |
+| Services | `Frontend/src/services/` | Create, search, duplicate detection, update operations |
+| Core | `Frontend/src/lib/` | Analysis, scoring, storage, normalization, geolocation |
+| Types | `Frontend/src/types/` | Domain contracts |
 
 ## Main Flow
 
@@ -42,8 +42,8 @@ main.tsx
 KANDA stores coordinates and also resolves a readable location name.
 
 - GPS capture uses `navigator.geolocation`.
-- Reverse geocoding uses OpenStreetMap/Nominatim in `src/lib/geo/reverseGeocode.ts`.
-- Leaflet renders real map tiles through `src/components/maps/RealMap.tsx`.
+- Reverse geocoding uses OpenStreetMap/Nominatim in `Frontend/src/lib/geo/reverseGeocode.ts`.
+- Leaflet renders real map tiles through `Frontend/src/components/maps/RealMap.tsx`.
 - Markers use risk colors and the occurrence detail can show a proximity radius.
 
 Coordinates remain visible as technical detail, but users see a readable area name first.
@@ -61,7 +61,7 @@ The current prototype uses `localStorage` for portability. A production build sh
 
 ## Build Optimization
 
-`vite.config.ts` separates heavier dependencies into manual chunks:
+`Frontend/vite.config.ts` separates heavier dependencies into manual chunks:
 
 - `maps` for Leaflet;
 - `animation` for GSAP and Lenis;

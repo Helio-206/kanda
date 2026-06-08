@@ -9,6 +9,7 @@
 ## Setup
 
 ```bash
+cd Frontend
 npm install
 npm run dev
 ```
@@ -30,32 +31,32 @@ The development server runs at [http://localhost:3000](http://localhost:3000) by
 Landing copy lives in:
 
 ```text
-src/features/landing/content.ts
+Frontend/src/features/landing/content.ts
 ```
 
 Keep product language operational and concise.
 
 ## Adding a Landing Section
 
-1. Create a new file in `src/sections/`.
-2. Import it in `src/features/landing/LandingPage.tsx`.
-3. Add a navigation target in `src/features/landing/content.ts` only when the section needs a nav link.
+1. Create a new file in `Frontend/src/sections/`.
+2. Import it in `Frontend/src/features/landing/LandingPage.tsx`.
+3. Add a navigation target in `Frontend/src/features/landing/content.ts` only when the section needs a nav link.
 4. Use `ScrollReveal` or existing GSAP patterns for animation.
 
 ## Maps
 
-Use `src/components/maps/RealMap.tsx` for map rendering. Do not create static map drawings for product surfaces.
+Use `Frontend/src/components/maps/RealMap.tsx` for map rendering. Do not create static map drawings for product surfaces.
 
 Map data comes from Leaflet/OpenStreetMap. Reverse geocoding is handled in:
 
 ```text
-src/lib/geo/reverseGeocode.ts
+Frontend/src/lib/geo/reverseGeocode.ts
 ```
 
 ## Styling
 
-- Global tokens and shared component classes: `src/index.css`
-- Tailwind theme: `tailwind.config.js`
+- Global tokens and shared component classes: `Frontend/src/index.css`
+- Tailwind theme: `Frontend/tailwind.config.js`
 - Prefer Tailwind utilities in components.
 - Use inline styles only for dynamic map/animation values.
 
@@ -64,6 +65,7 @@ src/lib/geo/reverseGeocode.ts
 Always run:
 
 ```bash
+cd Frontend
 npm run lint
 npm run build
 npm test

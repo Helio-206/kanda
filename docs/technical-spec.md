@@ -4,6 +4,8 @@
 
 KANDA is a commercial prototype for intelligent occurrence management. It captures a field report with photo and location, enriches it with automated analysis, assigns priority, and keeps the record traceable through a unique code.
 
+The current web frontend lives in `Frontend/`. Repository-level documentation, API contracts, and GitHub automation stay at the root.
+
 ## Routes
 
 | Route | Purpose |
