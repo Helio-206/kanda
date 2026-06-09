@@ -25,14 +25,20 @@ export default function AppHeader() {
         </Link>
 
         <nav className="flex items-center gap-4 md:gap-6">
-          <Link to="/reportar" className={`${linkClass('/reportar')} no-underline hidden sm:inline-block`}>
-            Reportar
+          <Link to="/dashboard-entidades" className={`${linkClass('/dashboard-entidades')} no-underline hidden lg:inline-block`}>
+            Dashboard das Entidades
           </Link>
-          <Link to="/acompanhar" className={`${linkClass('/acompanhar')} no-underline hidden sm:inline-block`}>
-            Acompanhar
+          <Link to="/dashboard-administrativo" className={`${linkClass('/dashboard-administrativo')} no-underline hidden xl:inline-block`}>
+            Dashboard Administrativo
           </Link>
-          <Link to="/reportar" className="btn-primary text-sm py-3 px-5 md:py-4 md:px-8 no-underline">
-            Nova ocorrência
+          <Link to="/insights" className={`${linkClass('/insights')} no-underline hidden md:inline-block`}>
+            Insights
+          </Link>
+          <Link to="/mapa-administrativo" className={`${linkClass('/mapa-administrativo')} no-underline hidden xl:inline-block`}>
+            Mapa Administrativo
+          </Link>
+          <Link to="/dashboard-entidades" className="btn-primary text-sm py-3 px-5 md:py-4 md:px-8 no-underline">
+            Entrar no Painel
           </Link>
         </nav>
       </div>

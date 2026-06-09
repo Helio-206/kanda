@@ -27,7 +27,7 @@ export default function AcompanharPage() {
       return;
     }
 
-    navigate(`/ocorrencia/${occurrence.code}`);
+    navigate(`/legacy/ocorrencia/${occurrence.code}`);
   };
 
   return (

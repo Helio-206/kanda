@@ -146,7 +146,7 @@ export default function ReportarPage() {
     const updated = joinExistingOccurrence(code, note || undefined);
     setLoading(false);
     if (updated) {
-      navigate(`/ocorrencia/${updated.code}`);
+      navigate(`/legacy/ocorrencia/${updated.code}`);
     }
   };
 
@@ -172,7 +172,7 @@ export default function ReportarPage() {
         <OccurrenceDetail occurrence={occurrence} showTimeline={false} showMap />
 
         <div className="flex flex-wrap gap-4 mt-8">
-          <Link to={`/ocorrencia/${occurrence.code}`} className="btn-primary no-underline">
+          <Link to={`/legacy/ocorrencia/${occurrence.code}`} className="btn-primary no-underline">
             Acompanhar ocorrência
           </Link>
           <button

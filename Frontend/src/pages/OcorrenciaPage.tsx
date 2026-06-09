@@ -41,7 +41,7 @@ export default function OcorrenciaPage() {
           title="Código inválido"
           description="Não encontrámos nenhuma ocorrência com este código na plataforma KANDA."
           action={
-            <Link to="/acompanhar" className="btn-primary no-underline">
+            <Link to="/legacy/acompanhar" className="btn-primary no-underline">
               Tentar novamente
             </Link>
           }
@@ -65,7 +65,7 @@ export default function OcorrenciaPage() {
       </div>
 
       <div className="mt-8">
-        <Link to="/reportar" className="btn-secondary no-underline">
+        <Link to="/legacy/reportar" className="btn-secondary no-underline">
           Registar nova ocorrência
         </Link>
       </div>

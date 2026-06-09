@@ -25,6 +25,10 @@ export default function Navigation({ onScrollTo }: NavigationProps) {
     onScrollTo(target);
   }, [onScrollTo]);
 
+  const handleRouteClick = useCallback(() => {
+    setMobileOpen(false);
+  }, []);
+
   useEffect(() => {
     if (mobileOpen) {
       document.body.style.overflow = 'hidden';
@@ -58,19 +62,26 @@ export default function Navigation({ onScrollTo }: NavigationProps) {
 
           <div className="hidden lg:flex items-center gap-5 xl:gap-6">
             {navLinks.map((link) => (
-              <button
-                key={link.target}
-                onClick={() => handleNavClick(link.target)}
-                className="nav-link bg-transparent border-none cursor-pointer whitespace-nowrap"
-              >
-                {link.label}
-              </button>
+              'href' in link ? (
+                <Link
+                  key={link.label}
+                  to={link.href}
+                  className="nav-link no-underline whitespace-nowrap"
+                >
+                  {link.label}
+                </Link>
+              ) : (
+                <button
+                  key={link.label}
+                  onClick={() => handleNavClick(link.target)}
+                  className="nav-link bg-transparent border-none cursor-pointer whitespace-nowrap"
+                >
+                  {link.label}
+                </button>
+              )
             ))}
-            <Link to="/acompanhar" className="nav-link no-underline whitespace-nowrap">
-              Acompanhar
-            </Link>
-            <Link to="/reportar" className="btn-primary ml-1 no-underline whitespace-nowrap">
-              Nova ocorrência
+            <Link to="/dashboard-entidades" className="btn-primary ml-1 no-underline whitespace-nowrap">
+              Entrar no Painel
             </Link>
           </div>
 
@@ -106,30 +117,37 @@ export default function Navigation({ onScrollTo }: NavigationProps) {
             </div>
             <div className="flex flex-col items-center justify-center flex-1 gap-8 px-8">
               {navLinks.map((link, i) => (
-                <button
-                  key={link.target}
-                  onClick={() => handleNavClick(link.target)}
-                  className="font-display text-[28px] text-center text-kanda-text-primary bg-transparent border-none cursor-pointer hover:text-kanda-primary transition-colors"
-                  style={{
-                    animation: `fadeSlideUp 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${0.1 + i * 0.08}s both`,
-                  }}
-                >
-                  {link.label}
-                </button>
+                'href' in link ? (
+                  <Link
+                    key={link.label}
+                    to={link.href}
+                    onClick={handleRouteClick}
+                    className="font-display text-[28px] text-center text-kanda-text-primary no-underline hover:text-kanda-primary transition-colors"
+                    style={{
+                      animation: `fadeSlideUp 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${0.1 + i * 0.08}s both`,
+                    }}
+                  >
+                    {link.label}
+                  </Link>
+                ) : (
+                  <button
+                    key={link.label}
+                    onClick={() => handleNavClick(link.target)}
+                    className="font-display text-[28px] text-center text-kanda-text-primary bg-transparent border-none cursor-pointer hover:text-kanda-primary transition-colors"
+                    style={{
+                      animation: `fadeSlideUp 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${0.1 + i * 0.08}s both`,
+                    }}
+                  >
+                    {link.label}
+                  </button>
+                )
               ))}
               <Link
-                to="/acompanhar"
-                onClick={() => setMobileOpen(false)}
-                className="font-display text-[28px] text-kanda-text-primary no-underline hover:text-kanda-primary transition-colors"
-              >
-                Acompanhar
-              </Link>
-              <Link
-                to="/reportar"
-                onClick={() => setMobileOpen(false)}
+                to="/dashboard-entidades"
+                onClick={handleRouteClick}
                 className="btn-primary mt-4 no-underline"
               >
-                Nova ocorrência
+                Entrar no Painel
               </Link>
             </div>
           </div>

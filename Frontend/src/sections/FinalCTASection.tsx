@@ -21,11 +21,11 @@ export default function FinalCTASection() {
 
           <ScrollReveal direction="up" distance={15} duration={0.6} delay={0.4}>
             <div className="flex flex-wrap justify-center gap-4 mt-10">
-              <Link to="/reportar" className="btn-primary no-underline">
+              <Link to="/dashboard-entidades" className="btn-primary no-underline">
                 {finalCtaContent.cta}
               </Link>
-              <Link to="/acompanhar" className="btn-secondary no-underline border-kanda-background/30 text-kanda-background hover:border-kanda-primary hover:text-kanda-primary">
-                Acompanhar Ocorrência
+              <Link to="/dashboard-administrativo" className="btn-secondary no-underline border-kanda-background/30 text-kanda-background hover:border-kanda-primary hover:text-kanda-primary">
+                {finalCtaContent.ctaSecondary}
               </Link>
             </div>
           </ScrollReveal>

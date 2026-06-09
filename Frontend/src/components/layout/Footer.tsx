@@ -19,22 +19,22 @@ export default function Footer({ onScrollTo }: FooterProps) {
                 KANDA
               </Link>
               <p className="mt-4 text-sm text-kanda-background/60 max-w-xs">
-                Plataforma inteligente para registar, qualificar e acompanhar ocorrências urbanas.
+                Plataforma institucional para gerir ocorrências com inteligência comunitária.
               </p>
             </div>
 
             <div className="flex flex-col gap-2">
               <button
-                onClick={() => onScrollTo('analysis')}
+                onClick={() => onScrollTo('como-funciona')}
                 className="text-left text-sm text-kanda-background/70 hover:text-kanda-background transition-colors bg-transparent border-none cursor-pointer leading-[2.2]"
               >
-                Análise automática
+                Como funciona
               </button>
-              <Link to="/reportar" className="text-sm text-kanda-background/70 hover:text-kanda-background transition-colors no-underline leading-[2.2]">
-                Nova ocorrência
+              <Link to="/dashboard-entidades" className="text-sm text-kanda-background/70 hover:text-kanda-background transition-colors no-underline leading-[2.2]">
+                Dashboard das Entidades
               </Link>
-              <Link to="/acompanhar" className="text-sm text-kanda-background/70 hover:text-kanda-background transition-colors no-underline leading-[2.2]">
-                Acompanhar
+              <Link to="/insights" className="text-sm text-kanda-background/70 hover:text-kanda-background transition-colors no-underline leading-[2.2]">
+                Insights
               </Link>
             </div>
 
@@ -47,7 +47,7 @@ export default function Footer({ onScrollTo }: FooterProps) {
 
           <div className="mt-12 pt-6 border-t border-kanda-background/10">
             <p className="text-xs text-kanda-background/30 text-center md:text-left">
-              KANDA — Plataforma Inteligente de Gestão de Ocorrências
+              KANDA — Plataforma Institucional de Gestão de Ocorrências
             </p>
           </div>
         </div>

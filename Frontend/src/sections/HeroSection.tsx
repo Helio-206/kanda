@@ -126,15 +126,16 @@ export default function HeroSection({ onScrollTo }: HeroSectionProps) {
 
           {/* Buttons */}
           <div ref={buttonsRef} className="flex flex-wrap gap-4 mt-8 opacity-0">
-            <Link to="/reportar" className="btn-primary">
-              {heroContent.ctaPrimary}
-            </Link>
             <button
-              onClick={() => onScrollTo('problema')}
-              className="btn-secondary"
+              type="button"
+              onClick={() => onScrollTo('como-funciona')}
+              className="btn-primary"
             >
-              {heroContent.ctaSecondary}
+              {heroContent.ctaPrimary}
             </button>
+            <Link to="/dashboard-entidades" className="btn-secondary no-underline">
+              {heroContent.ctaSecondary}
+            </Link>
           </div>
         </div>
 

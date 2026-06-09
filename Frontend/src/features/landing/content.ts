@@ -8,10 +8,10 @@ export const heroContent = {
   headline: 'Da fotografia à decisão operacional.',
   subtitle: [
     'O KANDA transforma registos de campo em ocorrências qualificadas, com classificação automática, localização, nível de risco, prioridade e responsável sugerido.',
-    'Uma experiência simples para cidadãos e uma base de decisão mais clara para equipas operacionais.',
+    'A plataforma foi pensada para equipas operacionais, com uma visão clara do terreno e um caminho mais directo para a decisão.',
   ],
-  ctaPrimary: 'Criar ocorrência',
-  ctaSecondary: 'Ver plataforma',
+  ctaPrimary: 'Conhecer a Solução',
+  ctaSecondary: 'Entrar no Painel',
 } as const;
 
 export const automatedAnalysisContent = {
@@ -41,10 +41,10 @@ export const automatedAnalysisContent = {
 
 export const beneficiosContent = {
   overline: 'VALOR DO PRODUTO',
-  title: 'Uma operação mais clara para quem reporta e para quem resolve.',
+  title: 'Uma operação mais clara para quem participa e para quem resolve.',
   groups: [
     {
-      title: 'Para os cidadãos',
+      title: 'Para quem participa',
       items: [
         'Registo simples através de fotografia.',
         'Código único para acompanhamento.',
@@ -83,7 +83,7 @@ export const visaoContent = {
   title: 'Uma plataforma única para transformar sinais do terreno em ação.',
   paragraphs: [
     'O KANDA foi desenhado para instituições, operadores urbanos e equipas que precisam receber ocorrências com contexto suficiente para agir.',
-    'O protótipo demonstra o fluxo essencial: registar, interpretar, priorizar, acompanhar e manter histórico.',
+    'O protótipo demonstra o fluxo essencial: registar, interpretar, priorizar e manter histórico.',
     'A evolução natural inclui autenticação, backend, integrações operacionais, relatórios e notificações multicanal.',
   ],
 } as const;
@@ -91,13 +91,15 @@ export const visaoContent = {
 export const finalCtaContent = {
   headline: 'Menos ruído na triagem. Mais clareza na resposta.',
   subtitle:
-    'Explore o fluxo principal do KANDA e veja como uma ocorrência passa de fotografia a registo qualificado.',
-  cta: 'Criar ocorrência',
+    'Explore a plataforma e veja como o KANDA organiza ocorrências para equipas que precisam actuar com contexto.',
+  cta: 'Ver Plataforma',
+  ctaSecondary: 'Entrar no Painel',
 } as const;
 
 export const navLinks = [
   { label: 'Início', target: 'hero' },
   { label: 'Como Funciona', target: 'como-funciona' },
-  { label: 'Análise', target: 'analysis' },
-  { label: 'Benefícios', target: 'beneficios' },
+  { label: 'Impacto', target: 'beneficios' },
+  { label: 'Sobre', target: 'visao' },
+  { label: 'Dashboard / Entrar', href: '/dashboard-entidades' },
 ] as const;
