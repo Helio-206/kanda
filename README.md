@@ -42,12 +42,29 @@ npm test
 
 ## Routes
 
+### Official Web routes
+
 | Route | Purpose |
 |-------|---------|
-| `/` | Commercial landing page |
-| `/reportar` | Create a new occurrence |
-| `/acompanhar` | Search by occurrence code |
-| `/ocorrencia/:codigo` | Occurrence detail, map, score, and history |
+| `/` | Institutional landing page |
+| `/dashboard-entidades` | Entity operations dashboard |
+| `/dashboard-administrativo` | Administrative oversight dashboard |
+| `/insights` | Operational insights and trends |
+| `/mapa-administrativo` | Territorial and cluster view |
+
+Citizen reporting, tracking, exploration, and credibility are mobile-first flows.
+
+### Legacy prototype routes
+
+These routes remain in the codebase temporarily for the current prototype, but they are not part of the official Web scope:
+
+| Route | Purpose |
+|-------|---------|
+| `/legacy/reportar` | Prototype occurrence reporting flow |
+| `/legacy/acompanhar` | Prototype occurrence tracking by code |
+| `/legacy/ocorrencia/:codigo` | Prototype occurrence detail |
+
+The old public routes `/reportar`, `/acompanhar`, and `/ocorrencia/:codigo` now redirect to their `/legacy/...` equivalents.
 
 ## Documentation
 
