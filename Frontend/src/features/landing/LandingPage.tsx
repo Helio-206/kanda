@@ -29,23 +29,35 @@ export default function LandingPage() {
     lenisRef.current = lenis;
     lenis.on('scroll', ScrollTrigger.update);
 
-    gsap.ticker.add((time) => {
+    const raf = (time: number) => {
       lenis.raf(time * 1000);
-    });
+    };
+
+    gsap.ticker.add(raf);
 
     gsap.ticker.lagSmoothing(0);
 
     return () => {
       lenis.destroy();
-      gsap.ticker.remove(lenis.raf as Parameters<typeof gsap.ticker.remove>[0]);
+      gsap.ticker.remove(raf);
     };
   }, []);
 
   const handleScrollTo = useCallback((target: string) => {
     const el = document.getElementById(target);
-    if (el && lenisRef.current) {
-      lenisRef.current.scrollTo(el, { offset: -72 });
+    if (!el) {
+      return;
     }
+
+    if (lenisRef.current) {
+      lenisRef.current.scrollTo(el, { offset: -72 });
+      return;
+    }
+
+    el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    window.requestAnimationFrame(() => {
+      window.scrollBy({ top: -72, behavior: 'auto' });
+    });
   }, []);
 
   return (

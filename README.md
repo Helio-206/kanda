@@ -23,6 +23,22 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000).
 
+## Mobile MVP
+
+The mobile MVP lives in [`kanda-mobile/`](kanda-mobile).
+
+```bash
+cd kanda-mobile
+npm install
+npm run start
+```
+
+Expo helper commands:
+
+- `npm run android`
+- `npm run ios`
+- `npm run web`
+
 ## Quality Gates
 
 ```bash
@@ -79,6 +95,7 @@ The old public routes `/reportar`, `/acompanhar`, and `/ocorrencia/:codigo` now 
 | [docs/rules.md](docs/rules.md) | Product, code, and presentation rules |
 | [docs/technical-spec.md](docs/technical-spec.md) | Technical specification and production path |
 | [docs/api/README.md](docs/api/README.md) | API contract and OpenAPI guidance |
+| [docs/mobile-integration.md](docs/mobile-integration.md) | Mobile MVP location, setup, and alignment notes |
 | [CONTRIBUTING.md](CONTRIBUTING.md) | Contribution workflow and pull request rules |
 
 ## Stack

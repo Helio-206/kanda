@@ -1,6 +1,6 @@
 import { useRef, useEffect } from 'react';
 import gsap from 'gsap';
-import { Link } from 'react-router';
+import { useNavigate } from 'react-router';
 import { heroContent } from '@/features/landing/content';
 import GeoIntelligencePanel from '@/components/GeoIntelligencePanel';
 
@@ -9,6 +9,7 @@ interface HeroSectionProps {
 }
 
 export default function HeroSection({ onScrollTo }: HeroSectionProps) {
+  const navigate = useNavigate();
   const sectionRef = useRef<HTMLElement>(null);
   const headlineRef = useRef<HTMLHeadingElement>(null);
   const subtitleRef = useRef<HTMLParagraphElement>(null);
@@ -133,9 +134,13 @@ export default function HeroSection({ onScrollTo }: HeroSectionProps) {
             >
               {heroContent.ctaPrimary}
             </button>
-            <Link to="/dashboard-entidades" className="btn-secondary no-underline">
+            <button
+              type="button"
+              onClick={() => navigate('/dashboard-entidades')}
+              className="btn-secondary"
+            >
               {heroContent.ctaSecondary}
-            </Link>
+            </button>
           </div>
         </div>
 

@@ -25,6 +25,7 @@ export default function Footer({ onScrollTo }: FooterProps) {
 
             <div className="flex flex-col gap-2">
               <button
+                type="button"
                 onClick={() => onScrollTo('como-funciona')}
                 className="text-left text-sm text-kanda-background/70 hover:text-kanda-background transition-colors bg-transparent border-none cursor-pointer leading-[2.2]"
               >

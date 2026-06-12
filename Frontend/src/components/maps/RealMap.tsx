@@ -5,6 +5,7 @@ import type { RiskLevel } from '@/types/occurrence';
 
 export interface RealMapPoint {
   id: string;
+  code?: string;
   label: string;
   lat: number;
   lng: number;
@@ -21,6 +22,10 @@ interface RealMapProps {
   showRadius?: boolean;
   radiusMeters?: number;
   className?: string;
+  tileUrl?: string;
+  tileAttribution?: string;
+  tileSubdomains?: string[];
+  onPointClick?: (point: RealMapPoint) => void;
 }
 
 const RISK_COLORS: Record<RiskLevel, string> = {
@@ -73,6 +78,10 @@ export default function RealMap({
   showRadius = false,
   radiusMeters = 800,
   className = '',
+  tileUrl = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+  tileAttribution = '&copy; OpenStreetMap',
+  tileSubdomains,
+  onPointClick,
 }: RealMapProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const mapRef = useRef<LeafletMap | null>(null);
@@ -105,10 +114,13 @@ export default function RealMap({
       keyboard: interactive,
     }).setView([center.lat, center.lng], zoom);
 
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    const tileOptions = {
       maxZoom: 19,
-      attribution: '&copy; OpenStreetMap',
-    }).addTo(map);
+      attribution: tileAttribution,
+      ...(tileSubdomains?.length ? { subdomains: tileSubdomains } : {}),
+    };
+
+    L.tileLayer(tileUrl, tileOptions).addTo(map);
 
     const layerGroup = L.layerGroup().addTo(map);
     mapRef.current = map;
@@ -119,7 +131,7 @@ export default function RealMap({
       mapRef.current = null;
       layersRef.current = null;
     };
-  }, [center.lat, center.lng, interactive, zoom]);
+  }, [center.lat, center.lng, interactive, tileAttribution, tileSubdomains, tileUrl, zoom]);
 
   useEffect(() => {
     const map = mapRef.current;
@@ -141,6 +153,7 @@ export default function RealMap({
 
     mapPoints.forEach((point) => {
       L.marker([point.lat, point.lng], { icon: createMarkerIcon(point) })
+        .on('click', () => onPointClick?.(point))
         .bindPopup(point.label)
         .addTo(layerGroup);
     });
@@ -151,7 +164,7 @@ export default function RealMap({
     } else {
       map.setView([center.lat, center.lng], zoom);
     }
-  }, [center.lat, center.lng, mapPoints, radiusMeters, showRadius, zoom]);
+  }, [center.lat, center.lng, mapPoints, onPointClick, radiusMeters, showRadius, zoom]);
 
   useEffect(() => {
     const map = mapRef.current;

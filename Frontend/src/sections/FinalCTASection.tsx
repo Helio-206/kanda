@@ -1,8 +1,10 @@
-import { Link } from 'react-router';
+import { useNavigate } from 'react-router';
 import ScrollReveal from '@/components/ScrollReveal';
 import { finalCtaContent } from '@/features/landing/content';
 
 export default function FinalCTASection() {
+  const navigate = useNavigate();
+
   return (
     <section className="w-full bg-kanda-dark">
       <div className="max-w-[1440px] mx-auto px-5 md:px-10 lg:px-20 py-[120px]">
@@ -21,12 +23,20 @@ export default function FinalCTASection() {
 
           <ScrollReveal direction="up" distance={15} duration={0.6} delay={0.4}>
             <div className="flex flex-wrap justify-center gap-4 mt-10">
-              <Link to="/dashboard-entidades" className="btn-primary no-underline">
+              <button
+                type="button"
+                onClick={() => navigate('/dashboard-entidades')}
+                className="btn-primary"
+              >
                 {finalCtaContent.cta}
-              </Link>
-              <Link to="/dashboard-administrativo" className="btn-secondary no-underline border-kanda-background/30 text-kanda-background hover:border-kanda-primary hover:text-kanda-primary">
+              </button>
+              <button
+                type="button"
+                onClick={() => navigate('/dashboard-administrativo')}
+                className="btn-secondary border-kanda-background/30 text-kanda-background hover:border-kanda-primary hover:text-kanda-primary"
+              >
                 {finalCtaContent.ctaSecondary}
-              </Link>
+              </button>
             </div>
           </ScrollReveal>
         </div>

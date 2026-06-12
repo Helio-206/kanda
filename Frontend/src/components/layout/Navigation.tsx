@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback, useRef } from 'react';
-import { Link } from 'react-router';
+import { Link, useNavigate } from 'react-router';
 import { Menu, X } from 'lucide-react';
 import { navLinks } from '@/features/landing/content';
 
@@ -8,6 +8,7 @@ interface NavigationProps {
 }
 
 export default function Navigation({ onScrollTo }: NavigationProps) {
+  const navigate = useNavigate();
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
   const navRef = useRef<HTMLElement>(null);
@@ -25,9 +26,10 @@ export default function Navigation({ onScrollTo }: NavigationProps) {
     onScrollTo(target);
   }, [onScrollTo]);
 
-  const handleRouteClick = useCallback(() => {
+  const handleRouteClick = useCallback((href: string) => {
     setMobileOpen(false);
-  }, []);
+    navigate(href);
+  }, [navigate]);
 
   useEffect(() => {
     if (mobileOpen) {
@@ -63,15 +65,17 @@ export default function Navigation({ onScrollTo }: NavigationProps) {
           <div className="hidden lg:flex items-center gap-5 xl:gap-6">
             {navLinks.map((link) => (
               'href' in link ? (
-                <Link
+                <button
+                  type="button"
                   key={link.label}
-                  to={link.href}
-                  className="nav-link no-underline whitespace-nowrap"
+                  onClick={() => handleRouteClick(link.href)}
+                  className="nav-link bg-transparent border-none cursor-pointer whitespace-nowrap"
                 >
                   {link.label}
-                </Link>
+                </button>
               ) : (
                 <button
+                  type="button"
                   key={link.label}
                   onClick={() => handleNavClick(link.target)}
                   className="nav-link bg-transparent border-none cursor-pointer whitespace-nowrap"
@@ -80,9 +84,13 @@ export default function Navigation({ onScrollTo }: NavigationProps) {
                 </button>
               )
             ))}
-            <Link to="/dashboard-entidades" className="btn-primary ml-1 no-underline whitespace-nowrap">
+            <button
+              type="button"
+              onClick={() => handleRouteClick('/dashboard-entidades')}
+              className="btn-primary ml-1 whitespace-nowrap"
+            >
               Entrar no Painel
-            </Link>
+            </button>
           </div>
 
           <button
@@ -118,19 +126,20 @@ export default function Navigation({ onScrollTo }: NavigationProps) {
             <div className="flex flex-col items-center justify-center flex-1 gap-8 px-8">
               {navLinks.map((link, i) => (
                 'href' in link ? (
-                  <Link
+                  <button
+                    type="button"
                     key={link.label}
-                    to={link.href}
-                    onClick={handleRouteClick}
+                    onClick={() => handleRouteClick(link.href)}
                     className="font-display text-[28px] text-center text-kanda-text-primary no-underline hover:text-kanda-primary transition-colors"
                     style={{
                       animation: `fadeSlideUp 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) ${0.1 + i * 0.08}s both`,
                     }}
                   >
                     {link.label}
-                  </Link>
+                  </button>
                 ) : (
                   <button
+                    type="button"
                     key={link.label}
                     onClick={() => handleNavClick(link.target)}
                     className="font-display text-[28px] text-center text-kanda-text-primary bg-transparent border-none cursor-pointer hover:text-kanda-primary transition-colors"
@@ -142,13 +151,13 @@ export default function Navigation({ onScrollTo }: NavigationProps) {
                   </button>
                 )
               ))}
-              <Link
-                to="/dashboard-entidades"
-                onClick={handleRouteClick}
-                className="btn-primary mt-4 no-underline"
+              <button
+                type="button"
+                onClick={() => handleRouteClick('/dashboard-entidades')}
+                className="btn-primary mt-4"
               >
                 Entrar no Painel
-              </Link>
+              </button>
             </div>
           </div>
         </div>
