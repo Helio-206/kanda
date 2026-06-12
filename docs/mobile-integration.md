@@ -2,9 +2,9 @@
 
 ## Where the mobile app lives
 
-The MVP mobile app lives in [`kanda-mobile/`](../kanda-mobile).
+The MVP mobile app lives in [`kanda-mobile/`](../kanda-mobile) inside this repository.
 
-It is intentionally separate from the Web app in `Frontend/` so we do not mix React Native and React Web code.
+It remains intentionally separate from the Web app in `Frontend/` so we do not mix React Native and React Web code, but both now share one Git repository.
 
 ## What it uses
 

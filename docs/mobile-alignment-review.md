@@ -1,5 +1,7 @@
 # Mobile Alignment Review
 
+This review reflects the mobile app after it was folded into the same repository as the Web app.
+
 ## What changed
 
 - Home now speaks the language of the KANDA platform, not just a local reporting app.

@@ -25,7 +25,7 @@ Open [http://localhost:3000](http://localhost:3000).
 
 ## Mobile MVP
 
-The mobile MVP lives in [`kanda-mobile/`](kanda-mobile).
+The mobile MVP lives in [`kanda-mobile/`](kanda-mobile) inside the same repository.
 
 ```bash
 cd kanda-mobile
@@ -53,6 +53,7 @@ npm test
 | Path | Purpose |
 |------|---------|
 | `Frontend/` | React/Vite frontend application |
+| `kanda-mobile/` | Expo mobile application |
 | `docs/` | Product, architecture, API, and team documentation |
 | `.github/` | GitHub Actions and pull request template |
 

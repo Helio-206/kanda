@@ -1,5 +1,7 @@
 # Final Polish Report
 
+This report covers the Web and Mobile work now housed together in the same repository.
+
 ## What was improved
 
 - The Web operational surfaces now read like real control rooms instead of placeholders.
